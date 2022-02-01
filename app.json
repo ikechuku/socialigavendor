@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "coinmika-app",
+    "slug": "coinmika-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "description": ""
+  },
+  "name": "coinmika-app"
+}

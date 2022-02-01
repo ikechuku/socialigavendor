@@ -1,0 +1,75 @@
+export const icons = {
+  back: require("./navback.png"),
+  forward: require("./forward.png"),
+  bullet: require("./bullet.png"),
+  bug: require("./ladybug.png"),
+  eyeOpen: require("./open-eye.png"),
+  eyeClose: require("./close-eye.png"),
+  scan: require("./scan.png"),
+  bell: require("./bell.png"),
+  receive: require("./receive.png"),
+  swap: require("./swap.png"),
+  send: require("./send.png"),
+  buysell: require("./buysell.png"),
+  plus: require("./plus.png"),
+  times: require("./times.png"),
+  check: require("./check.png"),
+  icon: require("./icon.png"),
+  mika: require("./mika.png"),
+  transfer: require("./transfer.png"),
+  credit: require("./credit.png"),
+  sent: require("./sent.png"),
+  qr: require("./qr.png"),
+
+  // coins
+  usa: require("./usa.png"),
+  btc: require("./btc.png"),
+  doge: require("./doge.png"),
+  etherum: require("./etherum.png"),
+  tron: require("./tron.png"),
+  monero: require("./monero.png"),
+  theta: require("./theta.png"),
+  ltc: require("./ltc.png"),
+  bcash: require("./bcash.png"),
+  greenChart: require("./green-chart.png"),
+  redChart: require("./red-chart.png"),
+
+  currency: require("./currency.png"),
+  wallet: require("./wallet.png"),
+  transaction: require("./transaction.png"),
+  security: require("./security.png"),
+  community: require("./community.png"),
+  delete: require("./delete.png"),
+  help: require("./help.png"),
+  logout: require("./logout.png"),
+  search: require("./search.png"),
+
+  // communities
+  facebook: require("./facebook.png"),
+  instagram: require("./instagram.png"),
+  telegram: require("./telegram.png"),
+  twitter: require("./twitter.png"),
+  redTimes: require("./red-times.png"),
+  greenCheck: require("./check-circle.png"),
+  // reddit: require("./reddit.png"),
+  // youtube: require("./youtube.png"),
+
+  // active tab icons
+  activeBarChart: require("./active/home.png"),
+  activeLearn: require("./active/learn.png"),
+  activemarket: require("./active/market.png"),
+  activewallet: require("./active/wallet.png"),
+  activesettings: require("./active/settings.png"),
+  // Inactive tab icons
+  inactiveBarChart: require("./inactive/home.png"),
+  inactiveLearn: require("./inactive/learn.png"),
+  inactivemarket: require("./inactive/market.png"),
+  inactivewallet: require("./inactive/wallet.png"),
+  inactivesettings: require("./inactive/settings.png"),
+
+  // flags
+  ngn: require("./ngn.png"),
+  gbp: require("./gbp.png"),
+};
+
+export type IconTypes = keyof typeof icons;
