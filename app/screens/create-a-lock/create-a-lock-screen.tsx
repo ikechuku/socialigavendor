@@ -7,6 +7,7 @@ import {
   ImageStyle,
   SafeAreaView,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
@@ -22,7 +23,6 @@ import {
 } from "../../components";
 import { color, spacing, typography } from "../../theme";
 import { NavigatorParamList } from "../../navigators";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { ImportWalletScreen } from "..";
 import { placeholder } from "i18n-js";
 // import { back } from "../../components/icon/icons"
@@ -37,28 +37,43 @@ const TEXT: TextStyle = {
   fontFamily: typography.primary,
 };
 const BOLD: TextStyle = { fontWeight: "bold" };
-const BOWSER: ImageStyle = {
-  alignSelf: "center",
-  marginVertical: spacing[5],
-  maxWidth: "100%",
-  width: 200,
-  height: 200,
-  marginTop: 50,
-};
-const CREATE_BUTTON: ViewStyle = {
+const LOGIN_BUTTON: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
-  backgroundColor: color.palette.defaultBlue,
-  borderRadius: 10,
-};
-const IMPORT_BUTTON: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-  backgroundColor: color.palette.purple,
-  borderRadius: 10,
-  marginBottom: 20,
+  backgroundColor: color.palette.green,
+  borderRadius: 38,
   width: 327,
   alignSelf: "center",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  height: 55,
+  marginBottom: 20,
+};
+const GOOGLE_BUTTON: ViewStyle = {
+  paddingVertical: spacing[4],
+  paddingHorizontal: spacing[4],
+  backgroundColor: color.palette.white,
+  borderRadius: 38,
+  width: 327,
+  alignSelf: "center",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  borderWidth: 1,
+  borderColor: color.palette.lightGrey,
+};
+const FACEBOOK_BUTTON: ViewStyle = {
+  paddingVertical: spacing[4],
+  paddingHorizontal: spacing[4],
+  backgroundColor: color.palette.skyBlue,
+  borderRadius: 38,
+  width: 327,
+  alignSelf: "center",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  marginBottom: 15,
 };
 
 const TAG_CONTAINER: TextStyle = {
@@ -114,22 +129,26 @@ const FOOTER: ViewStyle = { backgroundColor: color.palette.deeperBlue };
 const FOOTER_CONTENT: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "white",
 };
 const TITLE: TextStyle = {
   ...BOLD,
-  fontSize: 18,
+  fontSize: 25,
   lineHeight: 25,
   textAlign: "center",
   marginBottom: spacing[5],
   fontStyle: "normal",
-  color: "white",
-  marginTop: 40,
+  color: "black",
+  marginTop: 60,
 };
 
 const DOTS: ViewStyle = {
   display: "flex",
   flexDirection: "row",
-  justifyContent: "center",
+  justifyContent: "flex-start",
   width: "100%",
   height: 20,
   marginTop: 40,
@@ -163,15 +182,13 @@ type InputTextProps = {
 export const CreateALockScreen: FC<
   StackScreenProps<NavigatorParamList, "CreateALockScreen">
 > = observer(({ navigation }) => {
-  const NextScreen = () => navigation.navigate("ImportFromSeedScreen");
+  const NextScreen = () => navigation.navigate("PortfolioHomeScreen");
   const goBack = () => navigation.goBack();
   const [visible, setVisible] = useState();
 
   return (
-    <View testID="WelcomeScreen" style={FULL}>
-      <GradientBackground
-        colors={[color.palette.deeperBlue, color.palette.deeperBlue]}
-      />
+    <View testID="CreateALockScreen" style={FULL}>
+      <GradientBackground colors={["white", "white"]} />
       <Screen
         style={CONTAINER}
         preset="scroll"
@@ -179,69 +196,90 @@ export const CreateALockScreen: FC<
       >
         <View />
         <View style={DOTS}>
-          <Button preset="link" onPress={goBack}>
-            <Icon style={{ marginRight: 20, height: 15 }} icon="back" />
+          <Button
+            preset="link"
+            onPress={goBack}
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Icon style={{ marginRight: 15, height: 15 }} icon="back" />
+            <Text style={{ color: "black", fontWeight: "bold" }}>Back</Text>
           </Button>
-          <View style={LIGHT_DOT}></View>
-          <View style={LINE}></View>
-          <View style={DARK_DOT}></View>
-          <View style={LINE}></View>
-          <View style={DARK_DOT}></View>
-          <TouchableOpacity>
-            <Text style={TAGLINE} text="1/3" />
+        </View>
+
+        <Text style={TITLE} preset="header" text="Welcome Back!" />
+
+        <View style={{ marginVertical: 20, marginBottom: 40 }}>
+          <TouchableOpacity style={FACEBOOK_BUTTON} onPress={NextScreen}>
+            <Icon
+              style={{
+                marginLeft: -50,
+                height: 23,
+                width: 20,
+              }}
+              icon="facebook"
+            />
+            <Text>CONTINUE WITH FACEBOOK</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={GOOGLE_BUTTON} onPress={NextScreen}>
+            <Icon
+              style={{
+                marginLeft: -50,
+                height: 23,
+                width: 20,
+              }}
+              icon="google"
+            />
+            <Text style={{ color: "black" }}>CONTINUE WITH FACEBOOK</Text>
           </TouchableOpacity>
         </View>
 
-        <Text style={TITLE} preset="header" text="Create a Lock" />
         <View style={TAG_CONTAINER}>
-          <Text
-            style={TAGLINE}
-            text="This Lock would be requested at every transaction"
-          />
+          <Text style={TAGLINE} text="OR LOGIN IN WITH EMAIL" />
         </View>
-        <PasswordInput placeholder="New Lock" />
         <View style={styles.formContainer}>
           <View style={styles.textInputInputWrapper}>
+            <TouchableOpacity>
+              <View style={styles.textInputIconWrapper}>
+                <Icon icon="person" style={{ height: 20 }} />
+              </View>
+            </TouchableOpacity>
             <TextInput
               style={{
                 width: "90%",
                 height: 40,
               }}
-              placeholder="Confirm Lock"
+              placeholder="Email Address"
             />
-            <TouchableOpacity>
-              <View style={styles.textInputIconWrapper}>
-                <Icon icon="eyeOpen" />
-              </View>
-            </TouchableOpacity>
           </View>
         </View>
+        <PasswordInput placeholder="Password" />
 
         <View
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center",
             flexDirection: "row",
             width: "80%",
             marginLeft: 20,
           }}
         >
-          <Checkbox
-            style={{
-              borderColor: color.palette.deeperBlue,
-              // backgroundColor: color.palette.purple,
-              // borderRadius: 50,
-            }}
-          />
-          <Text
-            style={TAGLINE2}
-            text="I understand that CoinMika cannot recover this password for me."
-          />
+          <Text style={TAGLINE2} text="ALREADY HAVE AN ACCOUNT? " />
+          <TouchableOpacity onPress={NextScreen}>
+            <Text
+              style={[TAGLINE2, { color: color.palette.green, marginLeft: 3 }]}
+              text="SIGNUP "
+            />
+          </TouchableOpacity>
         </View>
       </Screen>
 
       <SafeAreaView style={FOOTER}>
         <View style={FOOTER_CONTENT}>
+        
           <View
             style={{
               height: 10,
@@ -249,7 +287,7 @@ export const CreateALockScreen: FC<
           ></View>
 
           <Button
-            style={IMPORT_BUTTON}
+            style={LOGIN_BUTTON}
             textStyle={CONTINUE_TEXT}
             text="Next"
             onPress={NextScreen}
@@ -269,6 +307,11 @@ const PasswordInput = ({ placeholder }) => {
   return (
     <View style={styles.formContainer}>
       <View style={styles.textInputInputWrapper}>
+        <TouchableOpacity onPress={handleVisible}>
+          <View style={styles.textInputIconWrapper}>
+            <Icon icon="lock" style={{ height: 20 }} />
+          </View>
+        </TouchableOpacity>
         <TextInput
           style={{
             width: "90%",
@@ -276,12 +319,6 @@ const PasswordInput = ({ placeholder }) => {
           }}
           placeholder={placeholder}
         />
-        <TouchableOpacity onPress={handleVisible}>
-          <View style={styles.textInputIconWrapper}>
-            {/* <Icon icon="eye" /> */}
-            <Icon icon="eyeOpen" />
-          </View>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -321,23 +358,25 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: "center",
     alignItems: "center",
+    marginRight: 10,
   },
   textInputInputWrapper: {
     borderRadius: 10,
     // elevation: 1,
     width: "90%",
-    backgroundColor: color.palette.deepBlue,
+    backgroundColor: "#F0F0F0",
     paddingHorizontal: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: "auto",
     textAlign: "center",
+    height: 55,
   },
   textFeild: {
     width: 325,
     backgroundColor: color.transparent,
-    height: 50,
+    height: 60,
     marginTop: 30,
     marginBottom: 15,
     borderRadius: 10,

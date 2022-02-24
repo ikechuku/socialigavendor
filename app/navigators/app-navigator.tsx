@@ -60,29 +60,29 @@ const AppStack = () => {
     >
       <Stack.Screen name="onboarding" component={OnboardingScreen} />
       <Stack.Screen name="onboarding2" component={Onboarding2Screen} />
-      <Stack.Screen name="welcome" component={WelcomeScreen} />
+      {/* <Stack.Screen name="welcome" component={WelcomeScreen} /> */}
       <Stack.Screen name="CreateALockScreen" component={CreateALockScreen} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="ImportFromSeedScreen"
         component={ImportFromSeedScreen}
-      />
-      <Stack.Screen name="ImportWalletScreen" component={ImportWalletScreen} />
+      /> */}
+      {/* <Stack.Screen name="ImportWalletScreen" component={ImportWalletScreen} />
       <Stack.Screen
         name="SecureYourWalletScreen"
         component={SecureYourWalletScreen}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="SecureSeedPhraseScreen"
         component={SecureSeedPhraseScreen}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="WriteSeedPhraseScreen"
         component={WriteSeedPhraseScreen}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="SeedPhraseSuccessfulScreen"
         component={SeedPhraseSuccessfulScreen}
-      />
+      /> */}
       <Stack.Screen name="Home" component={OnboardingScreen} />
       <Stack.Screen name="PortfolioHomeScreen" component={HomeNavigator} />
       <Stack.Screen name="BuySellScreen" component={BuySellScreen} />

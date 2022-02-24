@@ -5,11 +5,12 @@ import {
   TextStyle,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
-import { Screen, GradientBackground, Text, Icon } from "../../components";
-import { color, typography } from "../../theme";
+import { Screen, GradientBackground, Text, Icon , } from "../../components";
+import { color, spacing, typography } from "../../theme";
 import { NavigatorParamList } from "../../navigators";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
@@ -34,10 +35,12 @@ const CUBE_CONTAINER: ViewStyle = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
-  width: "100%",
-  backgroundColor: color.palette.deepBlue,
+  width: "90%",
+  backgroundColor: "#F0F0F0",
   paddingVertical: 5,
   alignSelf: "center",
+  height: 35,
+  borderRadius: 100,
 };
 const CUBER: ViewStyle = {
   display: "flex",
@@ -100,7 +103,7 @@ const FLEX: ViewStyle = {
 };
 
 const BOTTOM: ViewStyle = {
-  backgroundColor: color.palette.deeperBlue,
+  backgroundColor: color.palette.white,
   width: "100%",
   marginHorizontal: "auto",
   marginBottom: -20,
@@ -117,6 +120,25 @@ const MANAGE: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "row",
+};
+
+const TAG_CONTAINER: TextStyle = {
+  // width: "70%",
+  paddingHorizontal: 50,
+  display: "flex",
+  justifyContent: "center",
+  fontWeight: "400",
+  fontSize: 14,
+  lineHeight: 24,
+  marginBottom: 60,
+};
+const TAGLINE: TextStyle = {
+  color: color.palette.lightGrey,
+  textAlign: "center",
+  fontSize: 14,
+  lineHeight: 24,
+  marginHorizontal: "auto",
+  marginBottom: spacing[4] + spacing[1],
 };
 
 export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
@@ -149,6 +171,26 @@ export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
 
     const goBack = () => navigation.goBack();
     const NextScreen = () => navigation.navigate("CoinDetailsScreen");
+    const PasswordInput = ({ placeholder }) => {
+      const [visible, setVisible] = useState(false);
+
+      function handleVisible() {
+        setVisible(!visible);
+      }
+      return (
+        <View style={styles.formContainer}>
+          <View style={styles.textInputInputWrapper}>
+            <TextInput
+              style={{
+                width: "90%",
+                height: 40,
+              }}
+              placeholder={placeholder}
+            />
+          </View>
+        </View>
+      );
+    };
 
     return (
       <ScrollView
@@ -162,9 +204,17 @@ export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
           <Screen
             style={CONTAINER}
             preset="scroll"
-            backgroundColor={color.palette.deeperBlue}
+            backgroundColor={color.palette.white}
           >
             <View style={[ROOT, { marginVertical: 10, marginTop: 50 }]}>
+              <View style={MANAGE}>
+                <TouchableOpacity>
+                  <Icon
+                    icon="back"
+                    style={{ padding: 6, height: 20, marginLeft: -5 }}
+                  />
+                </TouchableOpacity>
+              </View>
               <View
                 style={{
                   flexDirection: "row",
@@ -172,41 +222,60 @@ export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
                   alignItems: "center",
                 }}
               >
-                <Text style={{}} preset="header" text="Market" />
-              </View>
-              <View style={MANAGE}>
-                <TouchableOpacity>
-                  <Icon icon="search" style={{ padding: 6, height: 20 }} />
-                </TouchableOpacity>
+                <Text
+                  style={{
+                    color: color.palette.black,
+                    alignSelf: "center",
+                    marginLeft: -350,
+                  }}
+                  preset="header"
+                  text="Add a Product"
+                />
               </View>
             </View>
 
             <View style={BOTTOM}>
               <View style={CUBE_CONTAINER}>
                 <View style={CUBER}>
-                  <Text style={THEAD} text="Name" />
-                  <Text style={THEAD} text="LastPrice" />
-                  <Text style={COINS} text="24H Chg%" />
+                  <View
+                    style={{
+                      backgroundColor: "black",
+                      borderRadius: 100,
+                      padding: 5,
+                    }}
+                  >
+                    <Text style={COINS} text="Images" />
+                  </View>
+                  <Text style={THEAD} text="Details" />
+                  <Text style={THEAD} text="Pricing" />
+                  <Text style={THEAD} text="Images" />
+                  <Text style={THEAD} text="Images" />
                 </View>
               </View>
-              <View style={[CENTER, { marginTop: 10 }]}>
-                {data.map((coin, id) => {
-                  return (
-                    <CoinComponent
-                      key={id}
-                      coin={coin.symbol}
-                      ngn={coin.name}
-                      lastPrice={coin.price}
-                      chg={coin.all_time_high_change_percentage}
-                      checked={true}
-                      onpress={() => {
-                        navigation.navigate("CoinDetailsScreen", {
-                          coin: coin,
-                        });
+              <View style={{ marginVertical: 30, marginHorizontal: 10 }}>
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    marginLeft: 20,
+                  }}
+                >
+                  Details*
+                </Text>
+
+                <View style={styles.formContainer}>
+                  <View style={styles.textInputInputWrapper}>
+                    <TextInput
+                      style={{
+                        width: "90%",
+                        height: 40,
                       }}
+                      placeholder="Product Name"
                     />
-                  );
-                })}
+                  </View>
+                </View>
+                <PasswordInput placeholder="0.0" />
               </View>
             </View>
           </Screen>
@@ -260,3 +329,86 @@ const CoinComponent: React.FC<{
     </TouchableOpacity>
   );
 };
+const styles = StyleSheet.create({
+  profilePage: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "flex-start",
+  },
+  formContainer: {
+    marginVertical: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  textFieldWrapper: {
+    width: "85%",
+    alignSelf: "center",
+    paddingTop: 20,
+  },
+  textInputLabel: {
+    color: color.palette.black,
+    marginBottom: 10,
+    fontWeight: "100",
+  },
+  textInput: {
+    height: 50,
+    color: color.palette.black,
+    flex: 1,
+    flexDirection: "row",
+    paddingVertical: 10,
+  },
+  textInputIconWrapper: {
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  textInputInputWrapper: {
+    borderRadius: 10,
+    // elevation: 1,
+    width: "90%",
+    backgroundColor: "white",
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginHorizontal: "auto",
+    textAlign: "center",
+    height: 55,
+    borderWidth: 0.7,
+  },
+  textFeild: {
+    width: 325,
+    backgroundColor: color.transparent,
+    height: 60,
+    marginTop: 30,
+    marginBottom: 15,
+    borderRadius: 10,
+    paddingLeft: 20,
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderStyle: "solid",
+    alignSelf: "center",
+  },
+
+  flatGreyBtn: {
+    paddingHorizontal: 20,
+    height: 40,
+    borderRadius: 50,
+    backgroundColor: "#eeeeee",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+    paddingVertical: 10,
+  },
+  buttonsWrapper: {
+    width: "100%",
+    paddingLeft: 0,
+    flexDirection: "row",
+    marginTop: 20,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+});

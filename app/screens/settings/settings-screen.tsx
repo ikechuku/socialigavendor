@@ -20,7 +20,7 @@ const CONTAINER: ViewStyle = {
   paddingBottom: 200,
 };
 const COINT_ITEM: TextStyle = {
-  color: color.palette.white,
+  color: color.palette.black,
   fontFamily: typography.primary,
   fontSize: 15,
   fontWeight: "500",
@@ -72,32 +72,34 @@ const TITLE: TextStyle = {
 const ROOT: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "center",
   paddingHorizontal: 10,
   marginHorizontal: 15,
   marginVertical: 10,
 };
 
 const CARD: ViewStyle = {
-  backgroundColor: color.palette.purple,
+  backgroundColor: "#17C682",
   height: 203,
   width: "90%",
   marginTop: 10,
   marginHorizontal: "auto",
-  borderRadius: 20,
+  borderRadius: 4,
+  opacity: 0.2,
 };
 const COIN_CARD: ViewStyle = {
-  backgroundColor: color.palette.deeperBlue,
-  width: "90%",
-  height: 60,
-  marginTop: 10,
+  backgroundColor: color.palette.white,
+  width: "100%",
+  // height: 60,
   marginHorizontal: "auto",
-  borderRadius: 8,
   paddingVertical: 15,
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   alignContent: "center",
+  borderBottomWidth: 1,
+  borderBottomColor: color.palette.lightGrey,
+  paddingBottom: 30,
 };
 const CENTER: ViewStyle = {
   display: "flex",
@@ -127,20 +129,23 @@ export const SettingsScreen: FC<StackScreenProps<NavigatorParamList>> =
             alignContent: "center",
             width: "100%",
           }}
-          onPress={() => NextScreen(link)}
+          onPress={() => {}}
         >
           <View style={COIN_CARD}>
-            <TouchableOpacity style={FLEX} onPress={() => NextScreen(link)}>
+            <TouchableOpacity style={FLEX} onPress={() => {}}>
               <View
                 style={{
-                  display: "flex",
                   height: 35,
                   width: 35,
-                  borderRadius: 100,
-                  backgroundColor: color.palette.purple,
-                  justifyContent: "center",
+                  borderRadius: 4,
                   alignItems: "center",
                   marginRight: 20,
+                  marginLeft: 10,
+                  display: "flex",
+                  justifyContent: "center",
+                  backgroundColor: "#17C682",
+                  flexDirection: "row",
+                  opacity: 0.2,
                 }}
               >
                 <Icon
@@ -152,18 +157,15 @@ export const SettingsScreen: FC<StackScreenProps<NavigatorParamList>> =
                 <Text style={COINT_ITEM}>{coin}</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => NextScreen(link)}>
-              <View style={{ display: "flex", justifyContent: "center" }}>
-                <Icon
-                  style={{
-                    height: 15,
-                    width: 15,
-                    marginRight: 2,
-                    marginTop: 6,
-                  }}
-                  icon="forward"
-                />
-              </View>
+            <TouchableOpacity onPress={() => {}}>
+              <View
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  backgroundColor: "#17C682",
+                  flexDirection: "row",
+                }}
+              ></View>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -176,63 +178,110 @@ export const SettingsScreen: FC<StackScreenProps<NavigatorParamList>> =
       >
         <View testID="SettingsScreen" style={FULL}>
           <GradientBackground
-            colors={[color.palette.deeperBlue, color.palette.deeperBlue]}
+            colors={[color.palette.white, color.palette.white]}
           />
           <Screen
             style={CONTAINER}
             preset="scroll"
-            backgroundColor={color.palette.deeperBlue}
+            backgroundColor={color.palette.green}
           >
-            <View style={[ROOT, { marginVertical: 10, marginTop: 50 }]}>
+            <View
+              style={[
+                ROOT,
+                {
+                  marginVertical: 10,
+                  marginTop: 50,
+                  backgroundColor: color.palette.green,
+                  height: 100,
+                },
+              ]}
+            >
               {/* <TouchableOpacity onPress={goBack}>
                 <Icon icon="back" style={{ padding: 6, marginRight: 20 }} />
               </TouchableOpacity> */}
-              <Text style={{}} preset="header" text="Settings" />
+              <Text style={{}} preset="header" text="My Account" />
             </View>
             <View style={CENTER}>
-              <Image source={bg} style={CARD} />
+              <Icon
+                icon="face"
+                style={{
+                  padding: 6,
+                  marginRight: 20,
+                  height: 100,
+                  width: 100,
+                  marginTop: -9,
+                  zIndex: 20,
+                }}
+              />
             </View>
-
+            <View
+              style={[
+                {
+                  backgroundColor: color.palette.white,
+                  height: 100,
+                  width: "120%",
+                  marginLeft: -10,
+                  marginTop: -30,
+                  paddingTop: 40,
+                  marginVertical: 40,
+                  zIndex: 1,
+                  marginBottom: 0,
+                },
+              ]}
+            >
+              <Text
+                style={{
+                  color: color.palette.black,
+                  textAlign: "center",
+                  alignSelf: "center",
+                  marginLeft: -60,
+                  fontWeight: "100",
+                }}
+                preset="header"
+                text="Hi,"
+              />
+              <Text
+                style={{
+                  color: color.palette.black,
+                  textAlign: "center",
+                  alignSelf: "center",
+                  marginLeft: -60,
+                }}
+                preset="header"
+                text="Bolaji Fuga,"
+              />
+            </View>
             {/* <View style={BOTTOM}> */}
 
-            <View style={[CENTER, { marginTop: 20 }]}>
+            <View style={[CENTER, { marginTop: 0, paddingBottom: 200 }]}>
               <CoinComponent
-                coin="Default Currency"
-                icon="currency"
+                coin="My Details"
+                icon="details"
                 link={"ChooseCurrencyScreen"}
               />
               <CoinComponent
-                coin="Wallet"
-                icon="wallet"
+                coin="Change Password"
+                icon="password"
                 link={"WalletSettingsScreen"}
               />
               <CoinComponent
-                coin="Transaction History"
-                icon="transaction"
+                coin="Card Details"
+                icon="creditCard"
                 link={"SecureSeedPhraseScreen"}
               />
               <CoinComponent
-                coin="Security"
-                icon="security"
+                coin="Contact Preferences"
+                icon="phone"
                 link={"SecureSeedPhraseScreen"}
               />
               <CoinComponent
-                coin="Join Community"
-                icon="community"
+                coin="Social Accounts"
+                icon="social"
                 link={"CommunityScreen"}
               />
+
               <CoinComponent
-                coin="Delete Wallet"
-                icon="delete"
-                link={"SecureSeedPhraseScreen"}
-              />
-              <CoinComponent
-                coin="Help and Support"
-                icon="help"
-                link={"SecureSeedPhraseScreen"}
-              />
-              <CoinComponent
-                coin="Logout"
+                coin="Sign Out"
                 icon="logout"
                 link={"SecureSeedPhraseScreen"}
               />

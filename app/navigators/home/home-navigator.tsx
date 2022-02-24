@@ -2,7 +2,7 @@ import React from "react";
 import { LearnScreen, MarketScreen } from "../../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
-import { Icon } from "../../components";
+import { Icon, Text } from "../../components";
 import { Settings } from "../settings/settings-navigator";
 import MarketNavigator from "../market-navigator";
 import WalletScreen from "../wallet-navigator";
@@ -27,16 +27,15 @@ export const HomeNavigator = () => {
     borderWidth: 0,
     elevation: 0,
     tabBarStyle: {
-      backgroundColor: "#3F4367F2",
+      backgroundColor: "white",
       position: "absolute",
       bottom: 20,
       // marginHorizontal: 20,
       height: 71,
-      borderRadius: 50,
       paddingHorizontal: 5,
       shadowColor: "#0000",
       paddingBottom: 15,
-      marginBottom: -18
+      marginBottom: -20,
     },
   };
   return (
@@ -44,7 +43,7 @@ export const HomeNavigator = () => {
       <Tab.Navigator>
         <Tab.Screen
           name={"Homescreen"}
-          component={PortfolioHomeScreen}
+          component={MarketNavigator}
           options={{
             ...tabOptions,
             headerShown: false,
@@ -61,92 +60,22 @@ export const HomeNavigator = () => {
                   alignItems: "center",
                 }}
               >
-                {focused ? (
-                  <View
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: "60%",
-                        height: 2,
-                        backgroundColor: "#F3B050",
-                        marginTop: -20,
-                        left: 1,
-                        alignSelf: "center",
-                        marginHorizontal: 2,
-                      }}
-                    ></View>
-                  </View>
-                ) : (
-                  <></>
-                )}
                 <Icon
                   style={{ width: 34, height: 32, alignSelf: "center" }}
                   icon={focused ? "activeBarChart" : "inactiveBarChart"}
                 />
+                <Text style={{ fontSize: 10, marginTop: 4, color: "black " }}>
+                  {" "}
+                  Add a product
+                </Text>
               </View>
             ),
           }}
         />
-        <Tab.Screen
-          name="WalletScreen"
-          component={WalletScreen}
-          options={{
-            ...tabOptions,
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  position: "absolute",
-                  top: "30%",
-                  width: "100%",
-                  alignSelf: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                {focused ? (
-                  <View
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: "60%",
-                        height: 2,
-                        backgroundColor: focused ? "#F3B050" : "white",
-                        marginTop: -20,
-                        left: 0,
-                        alignSelf: "center",
-                        marginHorizontal: 2,
-                      }}
-                    ></View>
-                  </View>
-                ) : (
-                  <></>
-                )}
-                <Icon
-                  style={{ width: 34, height: 32, alignSelf: "center" }}
-                  icon={focused ? "activewallet" : "inactivewallet"}
-                />
-              </View>
-            ),
-          }}
-        />
+
         <Tab.Screen
           name="Market"
-          component={MarketNavigator}
+          component={PortfolioHomeScreen}
           options={{
             ...tabOptions,
             headerShown: false,
@@ -163,90 +92,19 @@ export const HomeNavigator = () => {
                   alignItems: "center",
                 }}
               >
-                {focused ? (
-                  <View
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: "60%",
-                        height: 2,
-                        backgroundColor: focused ? "#F3B050" : "white",
-                        marginTop: -20,
-                        alignSelf: "center",
-                        marginHorizontal: 2,
-                      }}
-                    ></View>
-                  </View>
-                ) : (
-                  <></>
-                )}
                 <Icon
                   style={{ width: 34, height: 32, alignSelf: "center" }}
                   icon={focused ? "activemarket" : "inactivemarket"}
                 />
+                <Text style={{ fontSize: 10, marginTop: 4, color: "black " }}>
+                  {" "}
+                  Dashboard
+                </Text>
               </View>
             ),
           }}
         />
-        <Tab.Screen
-          name={"Learn"}
-          component={LearnScreen}
-          options={{
-            ...tabOptions,
-            tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  position: "absolute",
-                  top: "30%",
-                  width: "100%",
-                  alignSelf: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                {focused ? (
-                  <View
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: "60%",
-                        height: 2,
-                        backgroundColor: focused ? "#F3B050" : "white",
-                        // position: "absolute",
-                        // bottom: 36,
-                        marginTop: -20,
-                        left: 0,
-                        alignSelf: "center",
-                        marginHorizontal: 2,
-                      }}
-                    ></View>
-                  </View>
-                ) : (
-                  <></>
-                )}
-                <Icon
-                  style={{ width: 34, height: 32, alignSelf: "center" }}
-                  icon={focused ? "activeLearn" : "inactiveLearn"}
-                />
-              </View>
-            ),
-          }}
-        />
+
         <Tab.Screen
           name="Settings"
           component={Settings}
@@ -264,37 +122,14 @@ export const HomeNavigator = () => {
                   alignItems: "center",
                 }}
               >
-                {focused ? (
-                  <View
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <View
-                      style={{
-                        width: "60%",
-                        height: 2,
-                        backgroundColor: focused ? "#F3B050" : "white",
-                        // position: "absolute",
-                        // bottom: 36,
-                        marginTop: -20,
-                        left: -2,
-                        alignSelf: "center",
-                        marginHorizontal: 2,
-                      }}
-                    ></View>
-                  </View>
-                ) : (
-                  <></>
-                )}
                 <Icon
                   style={{ width: 34, height: 32, alignSelf: "center" }}
                   icon={focused ? "activesettings" : "inactivesettings"}
                 />
+                <Text style={{ fontSize: 10, marginTop: 4, color: "black " }}>
+                  {" "}
+                  Profile
+                </Text>
               </View>
             ),
           }}

@@ -120,46 +120,5 @@ export const Onboarding2Screen: FC<
   const nextScreen = () => navigation.navigate("welcome");
   const Skip = () => navigation.navigate("CreateALockScreen");
 
-  return (
-    <View testID="OnboardingScreen" style={FULL}>
-      <GradientBackground colors={["#2B2E47", "#2B2E47"]} />
-      <Screen
-        style={CONTAINER}
-        preset="scroll"
-        backgroundColor={color.transparent}
-      >
-        <View style={ROOT}>
-          <View />
-          <TouchableOpacity onPress={Skip}>
-            <Text style={TAGLINE} text="skip" />
-          </TouchableOpacity>
-        </View>
-        <Image source={lockImage} style={BOWSER} />
-        <Text
-          style={TITLE}
-          preset="header"
-          text="KEEP YOUR WALLET AND YOU CRYPTO COINS SAFE"
-        />
-        <Text
-          style={TAGLINE}
-          text="Enable face detection or set a 
-pin for extra security."
-        />
-      </Screen>
-      <View>
-        <View style={DOTS}>
-          <View style={LIGHT_DOT}></View>
-          <View style={DARK_DOT}></View>
-        </View>
-        <View style={FOOTER_CONTENT}>
-          <Button
-            style={IMPORT_BUTTON}
-            textStyle={CONTINUE_TEXT}
-            text="Next"
-            onPress={nextScreen}
-          />
-        </View>
-      </View>
-    </View>
-  );
+  return <View testID="OnboardingScreen" style={FULL}></View>;
 });

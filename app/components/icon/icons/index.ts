@@ -1,5 +1,5 @@
 export const icons = {
-  back: require("./navback.png"),
+  back: require("./back.png"),
   forward: require("./forward.png"),
   bullet: require("./bullet.png"),
   bug: require("./ladybug.png"),
@@ -20,6 +20,10 @@ export const icons = {
   credit: require("./credit.png"),
   sent: require("./sent.png"),
   qr: require("./qr.png"),
+  lock: require("./lock.png"),
+  person: require("./person.png"),
+  clipboard: require("./clipboard.png"),
+  face: require("./face.png"),
 
   // coins
   usa: require("./usa.png"),
@@ -43,6 +47,20 @@ export const icons = {
   help: require("./help.png"),
   logout: require("./logout.png"),
   search: require("./search.png"),
+  google: require("./google.png"),
+  shirt: require("./shirt.png"),
+  bg: require("./bg.png"),
+  percent: require("./percent.png"),
+  van: require("./van.png"),
+  chart: require("./chart.png"),
+  calendar: require("./calendar.png"),
+  cube: require("./cube.png"),
+  details: require("./details.png"),
+  phone: require("./phone.png"),
+  password: require("./password.png"),
+  social: require("./social.png"),
+  creditCard: require("./credit-card.png"),
+  arrowRight: require("./arrow-long-right.png"),
 
   // communities
   facebook: require("./facebook.png"),
@@ -55,17 +73,17 @@ export const icons = {
   // youtube: require("./youtube.png"),
 
   // active tab icons
-  activeBarChart: require("./active/home.png"),
+  activeBarChart: require("./active/product.png"),
   activeLearn: require("./active/learn.png"),
-  activemarket: require("./active/market.png"),
+  activemarket: require("./active/dashboard.png"),
   activewallet: require("./active/wallet.png"),
-  activesettings: require("./active/settings.png"),
+  activesettings: require("./inactive/profile.png"),
   // Inactive tab icons
-  inactiveBarChart: require("./inactive/home.png"),
+  inactiveBarChart: require("./inactive/product.png"),
   inactiveLearn: require("./inactive/learn.png"),
-  inactivemarket: require("./inactive/market.png"),
+  inactivemarket: require("./inactive/dashboard.png"),
   inactivewallet: require("./inactive/wallet.png"),
-  inactivesettings: require("./inactive/settings.png"),
+  inactivesettings: require("./inactive/profile.png"),
 
   // flags
   ngn: require("./ngn.png"),

@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "coinmika-app",
-    "slug": "coinmika-app",
+    "name": "socialiga-vendor",
+    "slug": "socialiga-vendor",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
     "description": ""
   },
-  "name": "coinmika-app"
+  "name": "socialiga-vendor"
 }
