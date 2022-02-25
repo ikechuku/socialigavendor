@@ -5,7 +5,7 @@ import { View } from "react-native"
 import {
   PortfolioHomeScreen,
   LearnScreen,
-  MarketScreen,
+  AddProductScreen,
   WalletScreen,
   SettingsScreen,
 } from "../screens"

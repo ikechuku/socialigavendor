@@ -9,15 +9,20 @@ import {
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
-import { Screen, GradientBackground, Text, Icon , } from "../../components";
+import { Screen, GradientBackground, Text, Icon } from "../../components";
 import { color, spacing, typography } from "../../theme";
 import { NavigatorParamList } from "../../navigators";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import { create } from "apisauce";
 
 import data from "../../coins";
+import CustomButton from "../../components/customButton/customButton.component";
 // define the api
 
 const FULL: ViewStyle = { flex: 1 };
@@ -141,36 +146,15 @@ const TAGLINE: TextStyle = {
   marginBottom: spacing[4] + spacing[1],
 };
 
-export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
+export const AddPricing: FC<StackScreenProps<NavigatorParamList>> = observer(
   () => {
-    // const api = create({
-    //   baseURL: "https://coinmikav2.herokuapp.com/api",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-
-    // const [loading, setloading] = useState(false);
-    // const [coins, setcoins] = useState([]);
-    // const getCoins = () => {
-    //   setloading(true);
-    //   api
-    //     .get("/coins/")
-    //     .then((response) => {
-    //       // setcoins(response.data);
-    //       setloading(false);
-    //     })
-    //     .then(console.log);
-    // };
-
     useEffect(() => {
       // getCoins();
     }, []);
     const navigation = useNavigation();
 
     const goBack = () => navigation.goBack();
-    const NextScreen = () => navigation.navigate("CoinDetailsScreen");
+    // const NextScreen = () => navigation.navigate("CoinDetailsScreen");
     const PasswordInput = ({ placeholder }) => {
       const [visible, setVisible] = useState(false);
 
@@ -192,6 +176,10 @@ export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
       );
     };
 
+    const handleButton = () => {
+      //   navigation.navigate("AddPricing");
+    };
+
     return (
       <ScrollView
         style={{ flex: 1 }}
@@ -208,7 +196,7 @@ export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
           >
             <View style={[ROOT, { marginVertical: 10, marginTop: 50 }]}>
               <View style={MANAGE}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={goBack}>
                   <Icon
                     icon="back"
                     style={{ padding: 6, height: 20, marginLeft: -5 }}
@@ -252,7 +240,15 @@ export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
                   <Text style={THEAD} text="Images" />
                 </View>
               </View>
-              <View style={{ marginVertical: 30, marginHorizontal: 10 }}>
+              <View
+                style={{
+                  marginVertical: 30,
+                  marginHorizontal: 10,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Text
                   style={{
                     color: "black",
@@ -261,21 +257,87 @@ export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
                     marginLeft: 20,
                   }}
                 >
-                  Details*
+                  Pricing*
                 </Text>
-
+                <Text
+                  style={{
+                    color: "#A8A8A8",
+                    fontSize: 8,
+                    fontWeight: "400",
+                    marginLeft: 21,
+                    marginTop: 10,
+                  }}
+                >
+                  Product on Sale?
+                </Text>
+              </View>
+              <View style={styles.centerContents}>
+                <View
+                  style={{
+                    maxWidth: 100,
+                    width: "auto",
+                    height: 30,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginLeft: 21,
+                    borderRadius: 15,
+                    backgroundColor: "#F0F0F0",
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 13,
+                      borderRadius: 15,
+                      height: 30,
+                      backgroundColor: "#000",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text>NO</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      paddingHorizontal: 10,
+                      borderRadius: 15,
+                      height: 30,
+                      //   backgroundColor: "#ccc",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#000",
+                      }}
+                    >
+                      YES
+                    </Text>
+                  </TouchableOpacity>
+                </View>
                 <View style={styles.formContainer}>
+                  <Text style={styles.label}>Price</Text>
+
                   <View style={styles.textInputInputWrapper}>
                     <TextInput
                       style={{
                         width: "90%",
-                        height: 40,
+                        height: 150,
                       }}
-                      placeholder="Product Name"
+                      placeholder="N0.0"
                     />
                   </View>
                 </View>
-                <PasswordInput placeholder="0.0" />
+                <View style={styles.actionWrapper}>
+                  <View style={styles.actions}>
+                    <CustomButton name="BACK" background="#000" />
+                    <CustomButton name="NEXT" background="#17C682" />
+                  </View>
+                </View>
               </View>
             </View>
           </Screen>
@@ -286,60 +348,89 @@ export const MarketScreen: FC<StackScreenProps<NavigatorParamList>> = observer(
   }
 );
 
-const CoinComponent: React.FC<{
-  coin: string;
-  lastPrice: string;
-  ngn: string;
-  chg: string;
-  checked?: boolean;
-  onpress: () => {};
-}> = ({ coin, checked, lastPrice, ngn, chg, onpress }) => {
-  return (
-    <TouchableOpacity style={COIN_CARD} onPress={onpress}>
-      <View style={[FLEX, { width: "100%" }]}>
-        <View style={COIN_TEXT_CONTAINER}>
-          <Text style={COINT_ITEM}>{coin}</Text>
-          <Icon
-            style={{
-              height: 35,
-              width: 35,
-              marginRight: 20,
-            }}
-            icon={checked ? "greenChart" : "redChart"}
-          />
-          <View>
-            <Text style={COINT_ITEM}>{lastPrice}</Text>
-            <Text style={THEAD}>{ngn}</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: checked ? "green" : "red",
-            height: 30,
-            width: 70,
-            borderRadius: 2,
-          }}
-        >
-          <Text style={{ fontSize: 13 }}>{chg}%</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-};
+// const CoinComponent: React.FC<{
+//   coin: string;
+//   lastPrice: string;
+//   ngn: string;
+//   chg: string;
+//   checked?: boolean;
+//   onpress: () => {};
+// }> = ({ coin, checked, lastPrice, ngn, chg, onpress }) => {
+//   return (
+//     <TouchableOpacity style={COIN_CARD} onPress={onpress}>
+//       <View style={[FLEX, { width: "100%" }]}>
+//         <View style={COIN_TEXT_CONTAINER}>
+//           <Text style={COINT_ITEM}>{coin}</Text>
+//           <Icon
+//             style={{
+//               height: 35,
+//               width: 35,
+//               marginRight: 20,
+//             }}
+//             icon={checked ? "greenChart" : "redChart"}
+//           />
+//           <View>
+//             <Text style={COINT_ITEM}>{lastPrice}</Text>
+//             <Text style={THEAD}>{ngn}</Text>
+//           </View>
+//         </View>
+//         <View
+//           style={{
+//             flexDirection: "row",
+//             justifyContent: "center",
+//             alignItems: "center",
+//             backgroundColor: checked ? "green" : "red",
+//             height: 30,
+//             width: 70,
+//             borderRadius: 2,
+//           }}
+//         >
+//           <Text style={{ fontSize: 13 }}>{chg}%</Text>
+//         </View>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// };
 const styles = StyleSheet.create({
   profilePage: {
     width: "100%",
     flex: 1,
     justifyContent: "flex-start",
   },
+  centerContents: {
+    marginHorizontal: 10,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
   formContainer: {
     marginVertical: 10,
     display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    marginHorizontal: "auto",
+    alignItems: "center",
+  },
+  label: {
+    width: "90%",
+    marginHorizontal: "auto",
+    marginVertical: 10,
+    color: "#22292E",
+    fontWeight: "400",
+  },
+  actionWrapper: {
+    display: "flex",
+    // useless coding style....change to use react responsive screen
+    width: 280,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    paddingHorizontal: 10,
+  },
+  actions: {
+    display: "flex",
+    flexDirection: "row",
+    width: 100,
+    justifyContent: "space-between",
   },
   textFieldWrapper: {
     width: "85%",
@@ -370,13 +461,28 @@ const styles = StyleSheet.create({
     // elevation: 1,
     width: "90%",
     backgroundColor: "white",
-    paddingHorizontal: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: "auto",
+    // marginHorizontal: "auto",
+    marginBottom: 20,
     textAlign: "center",
     height: 55,
+    borderWidth: 0.7,
+  },
+  description: {
+    borderRadius: 10,
+    // elevation: 1,
+    width: "90%",
+    backgroundColor: "white",
+    paddingHorizontal: 0,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    // marginHorizontal: "auto",
+    marginBottom: 20,
+    textAlign: "center",
+    height: 150,
     borderWidth: 0.7,
   },
   textFeild: {

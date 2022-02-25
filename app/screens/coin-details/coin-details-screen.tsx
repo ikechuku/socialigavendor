@@ -259,7 +259,7 @@ export const CoinDetailsScreen: FC<StackScreenProps<NavigatorParamList>> =
       setBalance(!balance);
       console.log("balance is ", balance);
     };
-    const MarketScreen = () => navigation.navigate("MarketScreen");
+    const ProductScreen = () => navigation.navigate("ProductScreen");
     const gotobuy = () => navigation.navigate("BuySellScreen");
     const goBack = () => navigation.goBack();
 

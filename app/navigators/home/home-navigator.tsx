@@ -1,5 +1,5 @@
 import React from "react";
-import { LearnScreen, MarketScreen } from "../../screens";
+import { LearnScreen, AddProductScreen } from "../../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
 import { Icon, Text } from "../../components";

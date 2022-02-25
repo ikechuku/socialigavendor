@@ -263,8 +263,8 @@ export const PortfolioHomeScreen: FC<
     setBalance(!balance);
     console.log("balance is ", balance);
   };
-  const MarketScreen = () => navigation.navigate("MarketScreen");
-  const gotobuy = () => navigation.navigate("MarketScreen");
+  const ProductScreen = () => navigation.navigate("ProductScreen");
+  const gotobuy = () => navigation.navigate("ProductScreen");
   const ReceiveCoin = () => navigation.navigate("ReceiveCoinScreen");
   const swapScreen = () => navigation.navigate("SwapCoinScreen");
   const CoinDetailsScreen = () => navigation.navigate("CoinDetailsScreen");
