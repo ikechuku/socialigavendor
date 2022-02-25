@@ -230,14 +230,15 @@ export const AddPricing: FC<StackScreenProps<NavigatorParamList>> = observer(
                       backgroundColor: "black",
                       borderRadius: 100,
                       padding: 5,
+                      display: "flex",
                     }}
                   >
-                    <Text style={COINS} text="Images" />
+                    <Text style={COINS} text="Details" />
+                    <Text style={COINS} text="Pricing" />
                   </View>
-                  <Text style={THEAD} text="Details" />
-                  <Text style={THEAD} text="Pricing" />
                   <Text style={THEAD} text="Images" />
-                  <Text style={THEAD} text="Images" />
+                  <Text style={THEAD} text="Inventory" />
+                  <Text style={THEAD} text="Keywords" />
                 </View>
               </View>
               <View

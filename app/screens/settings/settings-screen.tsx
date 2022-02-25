@@ -5,13 +5,14 @@ import {
   TextStyle,
   Text as NativeText,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
 import { Screen, GradientBackground, Text, Icon } from "../../components";
 import { color, spacing, typography } from "../../theme";
 import { NavigatorParamList } from "../../navigators";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 const bg = require("./settings_bg.png");
 
 const FULL: ViewStyle = { flex: 1 };
@@ -132,7 +133,12 @@ export const SettingsScreen: FC<StackScreenProps<NavigatorParamList>> =
           onPress={() => {}}
         >
           <View style={COIN_CARD}>
-            <TouchableOpacity style={FLEX} onPress={() => {}}>
+            <TouchableOpacity
+              style={FLEX}
+              onPress={() => {
+                navigation.navigate(link);
+              }}
+            >
               <View
                 style={{
                   height: 35,
@@ -267,7 +273,7 @@ export const SettingsScreen: FC<StackScreenProps<NavigatorParamList>> =
               <CoinComponent
                 coin="Card Details"
                 icon="creditCard"
-                link={"SecureSeedPhraseScreen"}
+                link={"WalletSettingsScreen"}
               />
               <CoinComponent
                 coin="Contact Preferences"

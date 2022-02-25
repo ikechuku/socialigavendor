@@ -24,6 +24,7 @@ export const icons = {
   person: require("./person.png"),
   clipboard: require("./clipboard.png"),
   face: require("./face.png"),
+  ccard: require("./ccard.jpeg"),
 
   // coins
   usa: require("./usa.png"),
@@ -77,7 +78,7 @@ export const icons = {
   activeLearn: require("./active/learn.png"),
   activemarket: require("./active/dashboard.png"),
   activewallet: require("./active/wallet.png"),
-  activesettings: require("./inactive/profile.png"),
+  activesettings: require("./active/profile.png"),
   // Inactive tab icons
   inactiveBarChart: require("./inactive/product.png"),
   inactiveLearn: require("./inactive/learn.png"),

@@ -1,11 +1,25 @@
-import React, { FC, useState } from "react";
-import { View, ViewStyle, TextStyle, TouchableOpacity } from "react-native";
+import React, { FC, useState, useEffect } from "react";
+import {
+  View,
+  ViewStyle,
+  TextStyle,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
 import { Screen, GradientBackground, Text, Icon } from "../../components";
-import { color, typography } from "../../theme";
+import { color, spacing, typography } from "../../theme";
 import { NavigatorParamList } from "../../navigators";
 import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+
+import { create } from "apisauce";
+
+import data from "../../coins";
+import CustomButton from "../../components/customButton/customButton.component";
+// define the api
 
 const FULL: ViewStyle = { flex: 1 };
 const CONTAINER: ViewStyle = {
@@ -16,25 +30,24 @@ const COINT_ITEM: TextStyle = {
   fontFamily: typography.primary,
   fontSize: 15,
   fontWeight: "500",
+  marginRight: 20,
 };
-const BOLD: TextStyle = { fontWeight: "bold" };
-
-const TAGLINE2: TextStyle = {
-  color: color.palette.lightGrey,
-  fontSize: 12,
-  lineHeight: 22,
-  marginHorizontal: "auto",
-  width: "70%",
-  marginTop: 10,
-};
-
 const CUBE_CONTAINER: ViewStyle = {
   display: "flex",
   flexDirection: "row",
-  justifyContent: "space-evenly",
-  width: "100%",
-  backgroundColor: color.palette.deepBlue,
+  justifyContent: "center",
+  width: "90%",
+  backgroundColor: "#F0F0F0",
   paddingVertical: 5,
+  alignSelf: "center",
+  height: 35,
+  borderRadius: 100,
+};
+const CUBER: ViewStyle = {
+  display: "flex",
+  flexDirection: "row",
+  width: "87%",
+  justifyContent: "space-between",
 };
 const COIN_TEXT_CONTAINER: ViewStyle = {
   display: "flex",
@@ -43,18 +56,16 @@ const COIN_TEXT_CONTAINER: ViewStyle = {
   alignItems: "center",
 };
 const COINS: TextStyle = {
-  ...BOLD,
   fontSize: 14,
   lineHeight: 20,
   fontStyle: "normal",
   color: "white",
 };
-
-const TITLE2: TextStyle = {
-  ...BOLD,
-  fontSize: 20,
+const THEAD: TextStyle = {
+  fontSize: 14,
+  lineHeight: 20,
   fontStyle: "normal",
-  color: "white",
+  color: color.palette.lightGrey,
 };
 const ROOT: ViewStyle = {
   flexDirection: "row",
@@ -66,9 +77,9 @@ const ROOT: ViewStyle = {
 };
 
 const COIN_CARD: ViewStyle = {
-  backgroundColor: color.palette.deepBlue,
+  backgroundColor: color.palette.deeperBlue,
   width: "87%",
-  height: 90,
+  height: 50,
   marginTop: 10,
   marginHorizontal: "auto",
   borderRadius: 8,
@@ -93,9 +104,10 @@ const FLEX: ViewStyle = {
 };
 
 const BOTTOM: ViewStyle = {
-  backgroundColor: color.palette.deeperBlue,
+  backgroundColor: color.palette.white,
   width: "100%",
   marginHorizontal: "auto",
+  marginBottom: -20,
   paddingBottom: 200,
   marginTop: 20,
   minHeight: 800,
@@ -105,42 +117,109 @@ const MANAGE: ViewStyle = {
   width: 32,
   height: 30,
   borderRadius: 3,
-  backgroundColor: color.palette.deepBlue,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "row",
 };
 
+const TAG_CONTAINER: TextStyle = {
+  // width: "70%",
+  paddingHorizontal: 50,
+  display: "flex",
+  justifyContent: "center",
+  fontWeight: "400",
+  fontSize: 14,
+  lineHeight: 24,
+  marginBottom: 60,
+};
+const TAGLINE: TextStyle = {
+  color: color.palette.lightGrey,
+  textAlign: "center",
+  fontSize: 14,
+  lineHeight: 24,
+  marginHorizontal: "auto",
+  marginBottom: spacing[4] + spacing[1],
+};
+
 export const WalletSettingsScreen: FC<StackScreenProps<NavigatorParamList>> =
-  observer(({ navigation }) => {
-    const [summary, setSummary] = useState(false);
-    const toggleSummary = () => {
-      setSummary(!summary);
-    };
-    const [balance, setBalance] = useState(true);
-    const toggleBalance = () => {
-      setBalance(!balance);
-      console.log("balance is ", balance);
-    };
+  observer(() => {
+    // const api = create({
+    //   baseURL: "https://coinmikav2.herokuapp.com/api",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+
+    // const [loading, setloading] = useState(false);
+    // const [coins, setcoins] = useState([]);
+    // const getCoins = () => {
+    //   setloading(true);
+    //   api
+    //     .get("/coins/")
+    //     .then((response) => {
+    //       // setcoins(response.data);
+    //       setloading(false);
+    //     })
+    //     .then(console.log);
+    // };
+
+    useEffect(() => {
+      // getCoins();
+    }, []);
+    const navigation = useNavigation();
+
     const goBack = () => navigation.goBack();
-    const NextScreen = () => navigation.navigate("WalletSettingsScreen");
+    const NextScreen = () => navigation.navigate("CoinDetailsScreen");
+    const PasswordInput = ({ placeholder }) => {
+      const [visible, setVisible] = useState(false);
+
+      function handleVisible() {
+        setVisible(!visible);
+      }
+      return (
+        <View style={styles.formContainer}>
+          <View style={styles.textInputInputWrapper}>
+            <TextInput
+              style={{
+                width: "90%",
+                height: 40,
+              }}
+              placeholder={placeholder}
+            />
+          </View>
+        </View>
+      );
+    };
+
+    const handleButton = () => {
+      navigation.navigate("AddPricing");
+    };
 
     return (
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ marginBottom: 1 }}
       >
-        <View testID="WalletSettingsScreen" style={FULL}>
+        <View testID="AddProductScreen" style={FULL}>
           <GradientBackground
             colors={[color.palette.deeperBlue, color.palette.deeperBlue]}
           />
           <Screen
             style={CONTAINER}
             preset="scroll"
-            backgroundColor={color.palette.deeperBlue}
+            backgroundColor={color.palette.white}
           >
             <View style={[ROOT, { marginVertical: 10, marginTop: 50 }]}>
+              <View style={MANAGE}>
+                <TouchableOpacity onPress={goBack}>
+                  <Icon
+                    icon="back"
+                    style={{ padding: 6, height: 20, marginLeft: -5 }}
+                  />
+                </TouchableOpacity>
+              </View>
               <View
                 style={{
                   flexDirection: "row",
@@ -148,31 +227,70 @@ export const WalletSettingsScreen: FC<StackScreenProps<NavigatorParamList>> =
                   alignItems: "center",
                 }}
               >
-                <TouchableOpacity onPress={goBack}>
-                  <Icon
-                    icon="back"
-                    style={{ padding: 6, marginRight: 20, height: 15 }}
-                  />
-                </TouchableOpacity>
-                <Text style={{}} preset="header" text="Settings" />
+                <Text
+                  style={{
+                    color: color.palette.black,
+                    alignSelf: "center",
+                    marginLeft: -350,
+                  }}
+                  preset="header"
+                  text="My Cards"
+                />
               </View>
-              <View style={MANAGE}>
-                <TouchableOpacity onPress={NextScreen}>
-                  <Icon icon="plus" style={{ padding: 6, height: 15 }} />
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={[{ marginLeft: 30, marginVertical: 20 }]}>
-              <Text style={TITLE2} text="Manage Wallets " />
-              <Text style={TAGLINE2} text="Manage all your wallets" />
             </View>
 
             <View style={BOTTOM}>
-              <View style={[CENTER, { marginTop: 0 }]}>
-                <CoinComponent coin="Main Wallet" checked />
-                <CoinComponent coin="Main Wallet 1" />
-                <CoinComponent coin="Main Wallet 2" />
+              <View style={{ marginVertical: 30, marginHorizontal: 10 }}>
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    marginLeft: 20,
+                  }}
+                >
+                  Add new card
+                </Text>
+
+                <View style={styles.formContainer}>
+                  <Icon
+                    style={{
+                      // height: 194,
+                      maxWidth: 420,
+                    }}
+                    icon={"ccard"}
+                  />
+                  <Text style={styles.label}>Name</Text>
+                  <View style={styles.textInputInputWrapper}>
+                    <TextInput
+                      style={{
+                        width: "90%",
+                        height: 40,
+                      }}
+                    />
+                  </View>
+                  <Text style={styles.label}>Card Number</Text>
+
+                  <View style={styles.textInputInputWrapper}>
+                    <TextInput
+                      keyboardType="number-pad"
+                      style={{
+                        width: "90%",
+                        height: 150,
+                      }}
+                      placeholder=""
+                    />
+                  </View>
+
+                  <View>
+                    <CustomButton
+                      name="NEXT"
+                      background="#17C682"
+                      width={70}
+                      handleClick={handleButton}
+                    />
+                  </View>
+                </View>
               </View>
             </View>
           </Screen>
@@ -182,38 +300,152 @@ export const WalletSettingsScreen: FC<StackScreenProps<NavigatorParamList>> =
     );
   });
 
-const CoinComponent: React.FC<{ coin: string; checked?: boolean }> = ({
-  coin,
-  checked,
-}) => {
+const CoinComponent: React.FC<{
+  coin: string;
+  lastPrice: string;
+  ngn: string;
+  chg: string;
+  checked?: boolean;
+  onpress: () => {};
+}> = ({ coin, checked, lastPrice, ngn, chg, onpress }) => {
   return (
-    <TouchableOpacity style={COIN_CARD}>
+    <TouchableOpacity style={COIN_CARD} onPress={onpress}>
       <View style={[FLEX, { width: "100%" }]}>
         <View style={COIN_TEXT_CONTAINER}>
+          <Text style={COINT_ITEM}>{coin}</Text>
           <Icon
             style={{
-              height: 70,
-              width: 70,
-              marginRight: 10,
+              height: 35,
+              width: 35,
+              marginRight: 20,
             }}
-            icon="mika"
+            icon={checked ? "greenChart" : "redChart"}
           />
-          <View style={{ width: 150 }}>
-            <Text style={COINT_ITEM}>{coin}</Text>
-            <Text style={TAGLINE2} text="Multi Coin Wallet" />
+          <View>
+            <Text style={COINT_ITEM}>{lastPrice}</Text>
+            <Text style={THEAD}>{ngn}</Text>
           </View>
         </View>
-        <View>
-          <Icon
-            icon={checked ? "greenCheck" : "redTimes"}
-            style={{ height: 20, marginRight: -25 }}
-          />
-          <Icon
-            icon="icon"
-            style={{ height: 20, marginRight: -25, marginTop: 20 }}
-          />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: checked ? "green" : "red",
+            height: 30,
+            width: 70,
+            borderRadius: 2,
+          }}
+        >
+          <Text style={{ fontSize: 13 }}>{chg}%</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
+const styles = StyleSheet.create({
+  profilePage: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "flex-start",
+  },
+  formContainer: {
+    marginVertical: 10,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    marginHorizontal: "auto",
+    alignItems: "center",
+  },
+  label: {
+    width: "90%",
+    marginHorizontal: "auto",
+    marginVertical: 10,
+    color: "#22292E",
+    fontWeight: "400",
+  },
+  textFieldWrapper: {
+    width: "85%",
+    alignSelf: "center",
+    paddingTop: 20,
+  },
+  textInputLabel: {
+    color: color.palette.black,
+    marginBottom: 10,
+    fontWeight: "100",
+  },
+  textInput: {
+    height: 50,
+    color: color.palette.black,
+    flex: 1,
+    flexDirection: "row",
+    paddingVertical: 10,
+  },
+  textInputIconWrapper: {
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  textInputInputWrapper: {
+    borderRadius: 10,
+    // elevation: 1,
+    width: "90%",
+    backgroundColor: "#F6F6F6",
+    paddingHorizontal: 10,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    // marginBottom: 20,
+    textAlign: "center",
+    height: 55,
+    // borderWidth: 0.7,
+  },
+  description: {
+    borderRadius: 10,
+    // elevation: 1,
+    width: "90%",
+    backgroundColor: "#F6F6F6",
+    paddingHorizontal: 0,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    // marginHorizontal: "auto",
+    marginBottom: 20,
+    textAlign: "center",
+    // height: 150,
+  },
+  textFeild: {
+    width: 325,
+    backgroundColor: "#F6F6F6",
+    height: 60,
+    marginTop: 30,
+    marginBottom: 15,
+    borderRadius: 10,
+    paddingLeft: 20,
+    justifyContent: "center",
+    // borderWidth: 0.5,
+    borderStyle: "solid",
+    alignSelf: "center",
+  },
+
+  flatGreyBtn: {
+    paddingHorizontal: 20,
+    height: 40,
+    borderRadius: 50,
+    backgroundColor: "#eeeeee",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+    paddingVertical: 10,
+  },
+  buttonsWrapper: {
+    width: "100%",
+    paddingLeft: 0,
+    flexDirection: "row",
+    marginTop: 20,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+});
